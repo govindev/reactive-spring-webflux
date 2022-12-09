@@ -22,7 +22,7 @@ public class FluxAndMonoGeneratorService {
         return Flux.fromIterable(List.of("alex", "ben", "chloe"))
                 .map(String::toUpperCase)
 //                .map(str -> str.toUpperCase())
-                .filter(s -> s.length() > 3)
+                .filter(s -> s.length() > stringLength)
                 .map(s -> s.length() + "-" + s) // 4-ALEX, 5-CHLOE
                 .log(); // db or a remote service call
     }
@@ -31,6 +31,23 @@ public class FluxAndMonoGeneratorService {
         var namesFlux = Flux.fromIterable(List.of("alex", "ben", "chloe"));
         namesFlux.map(String::toUpperCase);
         return namesFlux;
+    }
+
+    public Flux<String> namesFlux_flatmap(int stringLength) {
+        //filter the string whose length is greater than 3
+        return Flux.fromIterable(List.of("alex", "ben", "chloe"))
+                .map(String::toUpperCase)
+//                .map(str -> str.toUpperCase())
+                .filter(s -> s.length() > stringLength)
+                // ALEX, BE, CHLOE -> A, L, E, X, B, E, C, H, L, O, E
+                .flatMap(s -> splitString(s))
+                .log(); // db or a remote service call
+    }
+
+    //ALEX -> Flux(A,L,E,X)
+    public Flux<String> splitString(String name) {
+        var charArray = name.split("");
+        return Flux.fromArray(charArray);
     }
 
     public static void main(String[] args) {

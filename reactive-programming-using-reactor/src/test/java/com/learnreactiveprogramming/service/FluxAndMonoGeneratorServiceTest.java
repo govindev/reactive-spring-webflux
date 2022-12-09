@@ -25,7 +25,7 @@ class FluxAndMonoGeneratorServiceTest {
     @Test
     void namesFlux_map() {
         //given
-        int stringLength = 1;
+        int stringLength = 3;
 
         //when
         var namesFlux = fluxAndMonoGeneratorService.namesFlux_map(stringLength);
@@ -45,6 +45,20 @@ class FluxAndMonoGeneratorServiceTest {
         StepVerifier.create(namesFlux)
                 // .expectNext("ALEX", "BEN", "CHLOE")
                 .expectNext("alex", "ben", "chloe")
+                .verifyComplete();
+    }
+
+    @Test
+    void namesFlux_flatmap() {
+        //given
+        int stringLength = 3;
+
+        //when
+        var namesFlux = fluxAndMonoGeneratorService.namesFlux_flatmap(stringLength);
+
+        //then
+        StepVerifier.create(namesFlux)
+                .expectNext("A", "L", "E", "X", "C", "H", "L", "O", "E")
                 .verifyComplete();
     }
 }
