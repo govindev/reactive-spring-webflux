@@ -17,10 +17,13 @@ public class FluxAndMonoGeneratorService {
                 .log();
     }
 
-    public Flux<String> namesFlux_map() {
+    public Flux<String> namesFlux_map(int stringLength) {
+        //filter the string whose length is greater than 3
         return Flux.fromIterable(List.of("alex", "ben", "chloe"))
                 .map(String::toUpperCase)
 //                .map(str -> str.toUpperCase())
+                .filter(s -> s.length() > 3)
+                .map(s -> s.length() + "-" + s) // 4-ALEX, 5-CHLOE
                 .log(); // db or a remote service call
     }
 

@@ -24,10 +24,17 @@ class FluxAndMonoGeneratorServiceTest {
 
     @Test
     void namesFlux_map() {
-        var namesFlux = fluxAndMonoGeneratorService.namesFlux_map();
+        //given
+        int stringLength = 1;
 
+        //when
+        var namesFlux = fluxAndMonoGeneratorService.namesFlux_map(stringLength);
+
+        //then
         StepVerifier.create(namesFlux)
-                .expectNext("ALEX", "BEN", "CHLOE")
+//                .expectNext("ALEX", "BEN", "CHLOE")
+//                .expectNext("ALEX", "CHLOE")
+                .expectNext("4-ALEX", "5-CHLOE")
                 .verifyComplete();
     }
 
