@@ -191,4 +191,31 @@ class FluxAndMonoGeneratorServiceTest {
                 .expectNext("A", "B", "C", "D", "E", "F")
                 .verifyComplete();
     }
+
+    @Test
+    void explore_zip() {
+        var concatFlux = fluxAndMonoGeneratorService.explore_zip();
+
+        StepVerifier.create(concatFlux)
+                .expectNext("AD", "BE", "CF")
+                .verifyComplete();
+    }
+
+    @Test
+    void explore_zip_1() {
+        var concatFlux = fluxAndMonoGeneratorService.explore_zip_1();
+
+        StepVerifier.create(concatFlux)
+                .expectNext("AD14", "BE25", "CF36")
+                .verifyComplete();
+    }
+
+    @Test
+    void explore_zipWith() {
+        var concatFlux = fluxAndMonoGeneratorService.explore_zipWith();
+
+        StepVerifier.create(concatFlux)
+                .expectNext("AD", "BE", "CF")
+                .verifyComplete();
+    }
 }
